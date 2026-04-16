@@ -6,6 +6,7 @@ import {
   updateOrders,
   deleteOrders,
 } from "../controllers/orderControllers.js";
+
 router.get("/", getOrders);
 router.post("/", createOrders);
 router.put("/:id", updateOrders);

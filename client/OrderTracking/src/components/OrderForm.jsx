@@ -1,50 +1,73 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-function OrderForm({ onCreate }) {
+const OrderForm = ({ onCreate }) => {
   const [customerName, setCustomerName] = useState("");
-  const [items, setItems] = useState("");
+  const [itemName, setItemName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const itemList = items
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean);
-
-    if (!customerName || itemList.length === 0) {
-      alert("Please enter customer name and at least one item");
-      return;
-    }
-
-    onCreate({
+    const orderData = {
       customerName,
-      items: itemList,
-    });
-
+      itemName,
+    };
+    onCreate(orderData);
+    //clear from input
     setCustomerName("");
-    setItems("");
+    setItemName("");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-      <input
-        type="text"
-        placeholder="Customer Name"
-        value={customerName}
-        onChange={(e) => setCustomerName(e.target.value)}
-        style={{ marginRight: "10px", padding: "8px", width: "200px" }}
-      />
-      <input
-        type="text"
-        placeholder="Items (comma separated)"
-        value={items}
-        onChange={(e) => setItems(e.target.value)}
-        style={{ marginRight: "10px", padding: "8px", width: "300px" }}
-      />
-      <button type="submit">Create Order</button>
-    </form>
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          margin: "20px 0",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+          padding: "20px",
+          borderRadius: "8px",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="CustomerName"
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+          required
+          style={{
+            margin: "20px",
+            padding: "8px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        />
+        <input
+          type="text"
+          placeholder="itemName"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
+          required
+          style={{
+            margin: "20px",
+            padding: "8px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        />
+        <button
+          style={{
+            padding: "10px",
+            background: "orange",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontWeight: "medium",
+          }}
+        >
+          Create Order
+        </button>
+      </form>
+    </div>
   );
-}
+};
 
 export default OrderForm;

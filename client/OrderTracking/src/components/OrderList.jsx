@@ -1,8 +1,8 @@
 import OrderCard from "./OrderCard";
 
-function OrderList({ orders, onAdvance }) {
+function OrderList({ OrderForm, orders, onAdvance }) {
   if (orders.length === 0) {
-    return <p>No orders yet.</p>;
+    return <p>{OrderForm}</p>;
   }
 
   return (
